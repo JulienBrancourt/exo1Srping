@@ -33,10 +33,9 @@ public class TodoController {
     }
 
     @RequestMapping("/find")
-    @ResponseBody
-    public String findByName(Model model, String name) {
+    public String findByName(Model model) {
         Optional<Todo> montodo = todoService.todos.stream().filter(t -> t.getName().equals(name)).findFirst();
-        montodo.ifPresent(t -> model.addAttribute("todo", t));
+        montodo.ifPresent(t -> model.addAttribute());
         return "find";
     }
 

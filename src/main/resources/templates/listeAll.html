@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>todo tout</title>
+</head>
+<body>
+<h1>Toute la todo</h1>
+
+<ul>
+    <li th:each="t : ${todos}"><span th:text="${t.name}"></span></li>
+</ul>
+
+</body>
+</html>

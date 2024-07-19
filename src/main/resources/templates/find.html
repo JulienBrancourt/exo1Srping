@@ -6,9 +6,12 @@
 </head>
 <body>
 
-<p>Name : <span th:text="${name}"></span></p>
-<p>Name : <span th:text="${description}"></span></p>
-<p>Name : <span th:text="${isDone}"></span></p>
+<p>Name : <span th:text="${todo.getName()}"></span></p>
+<p>Description : <span th:text="${todo.getDescription()}"></span></p>
+<!--<p>Statut todo : <span th:text="${todo.isDone()}"></span></p>-->
+<p th:if="${todo.isDone()}">Statut : fini</p>
+<p th:if="${!todo.isDone()}">Statut : en cours</p>
+
 
 </body>
 </html>

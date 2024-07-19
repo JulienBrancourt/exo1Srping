@@ -5,6 +5,7 @@ import org.example.exo1_todo_spring.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -13,29 +14,35 @@ import java.util.Optional;
 
 @Controller
 public class TodoController {
-    private TodoService todoService;
+    private final TodoService todoService;
 
     @Autowired
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
 
-    @RequestMapping("/all")
-    @ResponseBody
-    public List<Todo> getAll(TodoService todoService) {
-        return todoService.todos;
+//    @RequestMapping("/")
+    @GetMapping("/") //plus facile à identifier que le requestMapping
+    public String home() {
+        return "home";
     }
 
-    @RequestMapping("/allpage")
+    @RequestMapping("/alltodosjson")
+    @ResponseBody //pour le JSON
+    public List<Todo> getAll() {
+        return todoService.getTodos();
+    }
+
+    @RequestMapping("/alltodos")
     public String getAllpage(Model model) {
-        model.addAttribute("todos", todoService.todos);
+        model.addAttribute("todos", todoService.getTodos());
         return "listeAll";
     }
 
     @RequestMapping("/find")
     public String findByName(Model model) {
-        Optional<Todo> montodo = todoService.todos.stream().filter(t -> t.getName().equals(name)).findFirst();
-        montodo.ifPresent(t -> model.addAttribute());
+        Todo todo = todoService.getTodos().get(1);
+        model.addAttribute("todo", todo);
         return "find";
     }
 
